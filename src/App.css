@@ -1,0 +1,96 @@
+/* Estilos generales y de la tarjeta principal */
+.app-container {
+  padding: 40px;
+  background-color: #f9fafb; /* Similar a bg-gray-50 */
+  font-family: sans-serif;
+  min-height: 100vh;
+}
+
+.card {
+  max-width: 900px;
+  margin: auto;
+  background-color: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f2937; /* Similar a text-gray-800 */
+  margin-bottom: 24px;
+}
+
+/* Estilos para la lista de servicios */
+.service-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Similar a space-y-4 */
+}
+
+.service-item {
+  border-bottom: 1px solid #e5e7eb; /* Similar a border-b */
+  padding-bottom: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.service-item:hover {
+  background-color: #f9fafb; /* Similar a hover:bg-gray-50 */
+}
+
+.service-client {
+  font-weight: 600; /* Similar a font-semibold */
+  font-size: 18px;
+  color: #1d4ed8; /* Similar a text-blue-700 */
+}
+
+.service-meta {
+  font-size: 14px;
+  color: #4b5563; /* Similar a text-gray-600 */
+}
+
+.service-description {
+  margin-top: 8px;
+  color: #1f2937; /* Similar a text-gray-800 */
+}
+
+/* --- ESTILOS PARA EL NUEVO FORMULARIO --- */
+.form-group {
+  margin-bottom: 16px; /* Espacio entre cada campo del formulario */
+}
+
+.form-label {
+  display: block; /* Hace que la etiqueta ocupe su propia línea */
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #374151; /* Color de texto gris oscuro */
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db; /* Borde gris claro */
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.button-primary {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0052CC; /* Tu color de marca azul */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button-primary:hover {
+  background-color: #0041a3; /* Un azul un poco más oscuro */
+}
