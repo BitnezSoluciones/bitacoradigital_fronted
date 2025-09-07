@@ -9,6 +9,21 @@ import './App.css';
 // Importamos el componente del formulario para poder usarlo en esta pantalla.
 import ServicioForm from './ServicioForm';
 
+function getCookie(name: string): string | null {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
 // Con TypeScript, definimos la "forma" exacta que tendrá un objeto de servicio.
 // Esto nos ayuda a evitar errores, asegurando que cada servicio siempre tenga estos campos.
 interface Servicio {
@@ -57,11 +72,13 @@ function App() {
   // La pasaremos a nuestro componente de formulario.
   const handleGuardarServicio = async (nuevoServicio: Omit<Servicio, 'id'>) => {
     try {
+      const csrftoken = getCookie('csrftoken');
       const response = await fetch('http://127.0.0.1:8000/api/servicios/', {
         method: 'POST', // Especificamos que es una petición POST para CREAR un nuevo recurso.
         headers: {
           'Content-Type': 'application/json', // Le decimos al servidor que le estamos enviando datos en formato JSON.
           // Más adelante, aquí necesitaremos añadir el token de seguridad CSRF.
+          'X-CSRFToken': csrftoken || '', // Usamos || '' para que nunca sea null
         },
         body: JSON.stringify(nuevoServicio) // Convertimos nuestro objeto de JavaScript a una cadena de texto JSON.
       });
