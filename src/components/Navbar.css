@@ -1,0 +1,27 @@
+/* frontend/src/components/Navbar.css */
+
+.navbar {
+  background-color: var(--surface-color, #ffffff); /* Usa el color de superficie (blanco) */
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Espacio entre el logo y el título */
+}
+
+.navbar-logo img {
+  height: 40px; /* Ajusta la altura de tu logo como necesites */
+}
+
+.navbar-logo h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color, #1230be); /* Usa el color primario de tu marca */
+  margin: 0;
+}

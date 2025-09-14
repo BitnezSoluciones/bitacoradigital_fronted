@@ -1,96 +1,160 @@
-/* Estilos generales y de la tarjeta principal */
+/* =================================================================== */
+/* VARIABLES Y ESTILOS GLOBALES                       */
+/* =================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root {
+  /* Paleta Corporativa */
+  --primary-color: #1230be;
+  --secondary-color: #23920b;
+  --accent-color: #e58927;
+
+  /* Paleta de Neutros */
+  --background-color: #f8f9fa;
+  --surface-color: #ffffff;
+  --border-color: #dee2e6;
+  --text-color-primary: #212529;
+  --text-color-secondary: #6c757d;
+  --danger-color: #dc3545;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color-primary);
+}
+
+/* =================================================================== */
+/* ESTRUCTURA Y TARJETAS                           */
+/* =================================================================== */
 .app-container {
-  padding: 40px;
-  background-color: #f9fafb; /* Similar a bg-gray-50 */
-  font-family: sans-serif;
-  min-height: 100vh;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
 .card {
-  max-width: 900px;
-  margin: auto;
-  background-color: white;
-  padding: 32px;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  margin-bottom: 2rem;
 }
 
 .title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #1f2937; /* Similar a text-gray-800 */
-  margin-bottom: 24px;
+  margin-top: 0;
+  font-size: 1.75rem;
 }
 
-/* Estilos para la lista de servicios */
-.service-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px; /* Similar a space-y-4 */
+/* =================================================================== */
+/* FORMULARIO                                  */
+/* =================================================================== */
+.service-form {
+  display: grid;
+  gap: 1.5rem;
 }
-
-.service-item {
-  border-bottom: 1px solid #e5e7eb; /* Similar a border-b */
-  padding-bottom: 16px;
-  padding: 16px;
-  border-radius: 8px;
-  transition: background-color 0.2s ease-in-out;
+.service-form fieldset {
+  margin: 0; padding: 1rem; border: 1px solid var(--border-color); border-radius: 6px;
+  display: grid; gap: 0.75rem;
 }
+.service-form legend { padding: 0 0.5rem; font-weight: 500; color: var(--text-color-secondary); }
+.service-form input { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
+.partida-item { display: grid; grid-template-columns: 1fr 4fr auto; gap: 0.5rem; align-items: center; }
+.remove-btn, .add-btn { padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--background-color); cursor: pointer; text-align: center; }
+.remove-btn { background-color: #fee2e2; color: var(--danger-color); border: none; }
+.add-btn { margin-top: 0.5rem; font-weight: 500; }
+.form-actions { display: flex; justify-content: flex-end; gap: 1rem; }
 
-.service-item:hover {
-  background-color: #f9fafb; /* Similar a hover:bg-gray-50 */
-}
-
-.service-client {
-  font-weight: 600; /* Similar a font-semibold */
-  font-size: 18px;
-  color: #1d4ed8; /* Similar a text-blue-700 */
-}
-
-.service-meta {
-  font-size: 14px;
-  color: #4b5563; /* Similar a text-gray-600 */
-}
-
-.service-description {
-  margin-top: 8px;
-  color: #1f2937; /* Similar a text-gray-800 */
-}
-
-/* --- ESTILOS PARA EL NUEVO FORMULARIO --- */
-.form-group {
-  margin-bottom: 16px; /* Espacio entre cada campo del formulario */
-}
-
-.form-label {
-  display: block; /* Hace que la etiqueta ocupe su propia línea */
-  margin-bottom: 4px;
-  font-weight: 500;
-  color: #374151; /* Color de texto gris oscuro */
-}
-
-.form-input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #d1d5db; /* Borde gris claro */
-  border-radius: 6px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-.button-primary {
-  width: 100%;
-  padding: 10px;
+/* Estilo para el botón principal del formulario */
+.form-actions button[type="submit"] {
+  background-color: var(--primary-color);
+  color: var(--surface-color);
   border: none;
+  padding: 0.75rem 1.5rem;
   border-radius: 6px;
-  background-color: #0052CC; /* Tu color de marca azul */
-  color: white;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-.button-primary:hover {
-  background-color: #0041a3; /* Un azul un poco más oscuro */
+.form-actions .cancel-btn {
+  background-color: var(--text-color-secondary);
+  color: var(--surface-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
 }
+
+/* =================================================================== */
+/* LISTA DE SERVICIOS                             */
+/* =================================================================== */
+.list-card .service-list {
+  list-style: none; padding: 0; margin: 0;
+}
+.list-card .service-item {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 1.5rem 0; border-bottom: 1px solid var(--border-color);
+}
+.list-card .service-item:last-child {
+  border-bottom: none;
+}
+.list-card .service-content {
+  flex-grow: 1;
+}
+.list-card .service-client {
+  margin: 0 0 0.25rem 0; font-size: 1.2rem;
+}
+.list-card .service-meta {
+  margin: 0; color: var(--text-color-secondary); font-size: 0.9rem;
+}
+.list-card .partidas-list {
+  list-style: disc; padding-left: 20px; margin-top: 0.75rem; color: var(--text-color-secondary);
+}
+.list-card .service-actions {
+  display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; margin-left: 1rem; margin-top: 1rem;
+}
+
+/* frontend/src/App.css */
+
+/* --- Estilos para los botones de Acción en la lista --- */
+
+/* Regla base para AMBOS botones, para no repetir código */
+.edit-btn,
+.delete-btn {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--surface-color); /* Fondo blanco */
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out; /* Transición suave para el hover */
+}
+
+/* Estilo específico para el botón de Editar */
+.edit-btn {
+  color: var(--primary-color); /* Texto azul */
+  border-color: var(--primary-color);
+}
+
+.edit-btn:hover {
+  background-color: var(--primary-color); /* Fondo azul al pasar el ratón */
+  color: var(--surface-color); /* Texto blanco */
+}
+
+/* Estilo específico para el botón de Eliminar */
+.delete-btn {
+  color: var(--danger-color); /* Texto rojo */
+  border-color: var(--danger-color);
+}
+
+.delete-btn:hover {
+  background-color: var(--danger-color); /* Fondo rojo al pasar el ratón */
+  color: var(--surface-color); /* Texto blanco */
+}
+
+/* (El resto de los archivos, como Modal, BitacoraDisplay, etc., ya usan los componentes de AntD o clases que funcionarán con esto) */
