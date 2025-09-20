@@ -157,4 +157,89 @@ body {
   color: var(--surface-color); /* Texto blanco */
 }
 
+.report-btn {
+  /* Copiamos los estilos base de los otros botones */
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--surface-color);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1em; /* Para que coincida con el tamaño de fuente de los botones */
+  font-family: inherit; /* Para que use la misma fuente */
+  transition: all 0.2s ease-in-out;
+  
+  /* Estilos específicos para el enlace */
+  text-decoration: none; /* Quita el subrayado de enlace */
+  color: var(--secondary-color); /* Lo hacemos verde (color secundario) */
+  border-color: var(--secondary-color);
+}
+
+.report-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--surface-color);
+}
+
+/* frontend/src/App.css */
+
+/* --- Estilos para el Panel de Reportes --- */
+.report-form {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.report-results {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.summary-card {
+  background-color: var(--light-gray);
+  border-radius: 8px;
+  padding: 1.5rem;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.summary-card span {
+  display: block;
+  color: var(--text-color-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.summary-card strong {
+  display: block;
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+/* frontend/src/App.css */
+.report-table {
+  width: 100%;
+  margin-top: 1.5rem;
+  border-collapse: collapse;
+}
+.report-table th, .report-table td {
+  border: 1px solid var(--border-color);
+  padding: 0.75rem;
+  text-align: left;
+}
+.report-table th {
+  background-color: var(--light-gray);
+}
+.report-table ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
 /* (El resto de los archivos, como Modal, BitacoraDisplay, etc., ya usan los componentes de AntD o clases que funcionarán con esto) */

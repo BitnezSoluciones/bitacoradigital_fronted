@@ -25,3 +25,25 @@
   color: var(--primary-color, #1230be); /* Usa el color primario de tu marca */
   margin: 0;
 }
+
+/* frontend/src/components/Navbar.css */
+
+/* ... tus estilos existentes para .navbar, etc. ... */
+
+.navbar-logo-link {
+  text-decoration: none; /* Quita el subrayado del enlace del logo */
+}
+
+.nav-link {
+  color: var(--text-color-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+  background-color: var(--light-gray);
+  color: var(--primary-color);
+}

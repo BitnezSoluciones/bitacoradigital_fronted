@@ -1,16 +1,22 @@
 // frontend/src/components/Navbar.tsx
 
-import './Navbar.css'; // Importamos los estilos para este componente
-import logo from '../assets/logo.png'; // Importamos la imagen del logo
+import { Link } from 'react-router-dom'; // 1. Importamos Link
+import './Navbar.css';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
-        <img src={logo} alt="Geek Depot Logo" />
-      </div>
+      <Link to="/" className="navbar-logo-link">
+        <div className="navbar-logo">
+          <img src={logo} alt="Bitnez Soluciones Logo" />
+          <h1 className="navbar-title">Bitácora Digital</h1>
+        </div>
+      </Link>
       <div className="navbar-links">
-        {/* Aquí irán los futuros enlaces de navegación */}
+        {/* 2. Usamos Link en lugar de <a> */}
+        <Link to="/" className="nav-link">Bitácoras</Link>
+        <Link to="/reportes" className="nav-link">Reportes</Link>
       </div>
     </nav>
   );
