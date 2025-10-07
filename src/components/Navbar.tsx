@@ -1,34 +1,47 @@
-// frontend/src/components/Navbar.tsx
+// src/components/Navbar.tsx
 
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 import logo from '../assets/logo.png';
-import { useAuth } from '../context/AuthContext'; // 1. Importa useAuth
 
-export const Navbar = () => {
-  const auth = useAuth(); // 2. Usa el hook de autenticación
+const Navbar = () => {
+  const auth = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    auth.logout(); // 3. Llama a la función de logout del contexto
-    navigate('/login'); // Opcional: redirige al login
+    if (window.confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+      auth.logout();
+      navigate('/login');
+    }
   };
 
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo-link">
         <div className="navbar-logo">
-          <img src={logo} alt="Bitnez Soluciones Logo" />
-          <h1 className="navbar-title">Bitácora Digital</h1>
+          <img src={logo} alt="Geek Depot Logo" />
         </div>
       </Link>
-      <div className="navbar-links">
+      
+      <div className="navbar-center">
         <Link to="/" className="nav-link">Bitácoras</Link>
-        <Link to="/reportes" className="nav-link">Reportes</Link>
-        <Link to="/logout" className="nav-link logout-btn">Cerrar Sesión</Link>
+        {auth.isAdmin && (
+          <Link to="/reportes" className="nav-link">Reportes</Link>
+        )}
+      </div>
+
+      <div className="navbar-right">
+        <span className="navbar-user">
+          👤 {auth.user?.username}
+          {auth.isAdmin && <span className="admin-badge">ADMIN</span>}
+        </span>
+        <button onClick={handleLogout} className="logout-btn">
+          Cerrar Sesión
+        </button>
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default Navbar;  

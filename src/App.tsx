@@ -1,54 +1,77 @@
-// frontend/src/App.tsx
-import { Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
-import './App.css';
-import Navbar from './components/Navbar';
+// src/App.tsx
+
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
+import { LoginPage } from './pages/LoginPage';
 import { BitacorasPage } from './BitacorasPage';
 import { ReportesDashboard } from './ReportesDashboard';
-import { LoginPage } from './LoginPage';
-import { LogoutPage } from './LogoutPage';
-import { useAuth } from './context/AuthContext';
+import Navbar from './components/Navbar';
+import './App.css';
 import { JSX } from 'react';
 
-// Componente Layout para rutas protegidas
-const ProtectedLayout = () => {
-  return (
-    <>
-      <Navbar />
-      <div className="app-container">
-        <Outlet /> {/* Outlet renderiza el componente hijo de la ruta */}
-      </div>
-    </>
-  );
-};
-
-// Componente para proteger rutas individuales
+// Componente para rutas protegidas
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const auth = useAuth();
-  if (!auth.token) {
+  
+  if (!auth.isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
+  
+  return children;
+};
+
+// Componente para rutas solo de admin
+const AdminRoute = ({ children }: { children: JSX.Element }) => {
+  const auth = useAuth();
+  
+  if (!auth.isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  if (!auth.isAdmin) {
+    return <Navigate to="/" replace />;
+  }
+  
   return children;
 };
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      {/* 2. Añade la nueva ruta para el logout */}
-      <Route path="/logout" element={<LogoutPage />} />
+  const auth = useAuth();
 
-      {/* Rutas Protegidas */}
-      <Route 
-        element={
-          <ProtectedRoute>
-            <ProtectedLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="/" element={<BitacorasPage />} />
-        <Route path="/reportes" element={<ReportesDashboard />} />
-      </Route>
-    </Routes>
+  return (
+    <>
+      {auth.isAuthenticated && <Navbar />}
+      
+      <div className="app-container">
+        <Routes>
+          {/* Ruta pública */}
+          <Route path="/login" element={<LoginPage />} />
+          
+          {/* Rutas protegidas */}
+          <Route 
+            path="/" 
+            element={
+              <ProtectedRoute>
+                <BitacorasPage />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Ruta solo para admin */}
+          <Route 
+            path="/reportes" 
+            element={
+              <AdminRoute>
+                <ReportesDashboard />
+              </AdminRoute>
+            } 
+          />
+          
+          {/* Ruta por defecto */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
