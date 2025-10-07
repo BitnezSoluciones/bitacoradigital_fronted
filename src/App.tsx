@@ -1,89 +1,54 @@
-// src/App.tsx
-
-import { useState, useEffect } from 'react';
+// frontend/src/App.tsx
+import { Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import './App.css';
-import { BitacoraForm } from './BitacoraForm';
-import { BitacoraDisplay } from './BitacoraDisplay';
-import { useApi } from './hooks/useApi';
-import type { Bitacora } from './types';
+import Navbar from './components/Navbar';
+import { BitacorasPage } from './BitacorasPage';
+import { ReportesDashboard } from './ReportesDashboard';
+import { LoginPage } from './LoginPage';
+import { LogoutPage } from './LogoutPage';
+import { useAuth } from './context/AuthContext';
+import { JSX } from 'react';
+
+// Componente Layout para rutas protegidas
+const ProtectedLayout = () => {
+  return (
+    <>
+      <Navbar />
+      <div className="app-container">
+        <Outlet /> {/* Outlet renderiza el componente hijo de la ruta */}
+      </div>
+    </>
+  );
+};
+
+// Componente para proteger rutas individuales
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const auth = useAuth();
+  if (!auth.token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
 function App() {
-  const [bitacoras, setBitacoras] = useState<Bitacora[]>([]);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const { loading, error, request } = useApi();
-
-  const fetchBitacoras = async () => {
-    const data = await request('bitacoras/', 'GET');
-    if (data) setBitacoras(data);
-  };
-
-  useEffect(() => {
-    fetchBitacoras();
-  }, []);
-
-  // --- LÓGICA CRUD CON LAS "LLAVES MAESTRAS" CORRECTAS ---
-  const handleCreateBitacora = async (bitacoraData: Omit<Bitacora, 'id'> | Bitacora) => {
-    await request('bitacoras/', 'POST', bitacoraData);
-    fetchBitacoras();
-  };
-
-  const handleUpdateBitacora = async (bitacoraData: Omit<Bitacora, 'id'> | Bitacora) => {
-    if (!('id' in bitacoraData)) {
-      console.error("Se intentó actualizar una bitácora sin ID.");
-      return;
-    }
-    await request(`bitacoras/${bitacoraData.id}/`, 'PUT', bitacoraData);
-    setEditingId(null);
-    fetchBitacoras();
-  };
-
-  const handleDeleteBitacora = (id: number) => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar esta bitácora?')) {
-      const deleteAction = async () => {
-        await request(`bitacoras/${id}/`, 'DELETE');
-        fetchBitacoras();
-      }
-      deleteAction();
-    }
-  };
-
-  const handleEditClick = (bitacora: Bitacora) => {
-    setEditingId(bitacora.id);
-  };
-
-  const handleCancelEdit = () => {
-    setEditingId(null);
-  };
-
   return (
-    <div className="app-container">
-      <div className="card create-form-card">
-        <h2 className="title">Añadir Nueva Bitácora de Servicio</h2>
-        <BitacoraForm onSave={handleCreateBitacora} />
-      </div>
-      <div className="card list-card">
-        <h1 className="title">Bitácoras de Servicios</h1>
-        <ul className="service-list">
-          {bitacoras.map((bitacora) => (
-            <li key={bitacora.id} className="service-item">
-              {editingId === bitacora.id ? (
-                <BitacoraForm
-                  bitacoraExistente={bitacora}
-                  onSave={handleUpdateBitacora} // <-- La línea del error
-                  onCancel={handleCancelEdit}
-                />
-              ) : (
-                <BitacoraDisplay
-                  bitacora={bitacora}
-                  onEdit={() => handleEditClick(bitacora)}
-                  onDelete={() => handleDeleteBitacora(bitacora.id)}
-                />
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      {/* 2. Añade la nueva ruta para el logout */}
+      <Route path="/logout" element={<LogoutPage />} />
+
+      {/* Rutas Protegidas */}
+      <Route 
+        element={
+          <ProtectedRoute>
+            <ProtectedLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/" element={<BitacorasPage />} />
+        <Route path="/reportes" element={<ReportesDashboard />} />
+      </Route>
+    </Routes>
   );
 }
 

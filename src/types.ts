@@ -4,7 +4,7 @@ export interface Partida {
   id?: number;
   cantidad: number;
   descripcion: string;
-  costo?: string;
+  costo: number;
 }
 
 export interface Bitacora {

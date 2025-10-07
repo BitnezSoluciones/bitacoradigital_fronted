@@ -2,66 +2,49 @@
 
 import { useState } from 'react';
 import type { ReporteData } from './types';
-import { useApi } from './hooks/useApi'; // Importamos nuestro hook mejorado
+import { useApi } from './hooks/useApi';
 
 export const ReportesDashboard = () => {
-  const [filtroCliente, setFiltroCliente] = useState('');
-  const [filtroFechaAfter, setFiltroFechaAfter] = useState('');
-  const [filtroFechaBefore, setFiltroFechaBefore] = useState('');
+  // --- ESTADOS ---
+  const [filtros, setFiltros] = useState({ cliente: '', fecha_after: '', fecha_before: '' });
   const [reporteData, setReporteData] = useState<ReporteData | null>(null);
+  const { loading, error, request } = useApi(); // Usamos nuestro hook universal
 
-  // Inicializamos el hook sin un endpoint por defecto
-  const { loading, error, request } = useApi();
+  // --- MANEJADORES ---
+  const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltros({ ...filtros, [e.target.name]: e.target.value });
+  };
 
-  const handleGenerarReporte = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setReporteData(null);
-    
+  const handleGenerarReporte = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setReporteData(null); // Limpiamos los resultados anteriores
 
-    // 1. Construimos los parámetros de la URL de forma dinámica
+    // 1. Construimos los parámetros de búsqueda de forma dinámica
     const params = new URLSearchParams();
-    if (filtroCliente) {
-      params.append('cliente__icontains', filtroCliente);
-    }
-    if (filtroFechaAfter) {
-      params.append('fecha_after', filtroFechaAfter);
-    }
-    if (filtroFechaBefore) {
-      params.append('fecha_before', filtroFechaBefore);
-    }
-
+    if (filtros.cliente) params.append('cliente__icontains', filtros.cliente);
+    if (filtros.fecha_after) params.append('fecha_after', filtros.fecha_after);
+    if (filtros.fecha_before) params.append('fecha_before', filtros.fecha_before);
+    
     // 2. Creamos el endpoint final con los filtros
     const endpoint = `bitacoras/resumen/?${params.toString()}`;
-
+    
     // 3. Llamamos a la API con nuestro hook
-    const data = await request(endpoint, 'GET');
-
+    const data = await request('GET', endpoint);
+    
     if (data) {
       setReporteData(data);
     }
   };
 
+  // --- RENDERIZADO ---
   return (
     <div className="card">
       <h1 className="title">Panel de Reportes de Facturación</h1>
-
+      
       <form onSubmit={handleGenerarReporte} className="report-form">
-        <input 
-          type="text" 
-          placeholder="Filtrar por cliente..." 
-          value={filtroCliente}
-          onChange={(e) => setFiltroCliente(e.target.value)}
-        />
-        <input 
-          type="date" 
-          value={filtroFechaAfter}
-          onChange={(e) => setFiltroFechaAfter(e.target.value)}
-        />
-        <input 
-          type="date" 
-          value={filtroFechaBefore}
-          onChange={(e) => setFiltroFechaBefore(e.target.value)}
-        />
+        <input name="cliente" type="text" placeholder="Filtrar por cliente..." value={filtros.cliente} onChange={handleFiltroChange} />
+        <input name="fecha_after" type="date" value={filtros.fecha_after} onChange={handleFiltroChange} />
+        <input name="fecha_before" type="date" value={filtros.fecha_before} onChange={handleFiltroChange} />
         <button type="submit" disabled={loading}>
           {loading ? 'Generando...' : 'Generar Reporte'}
         </button>
@@ -90,6 +73,7 @@ export const ReportesDashboard = () => {
                 <th>Cliente</th>
                 <th>Fecha</th>
                 <th>Partidas</th>
+                <th>Costo Total</th>
               </tr>
             </thead>
             <tbody>
@@ -98,11 +82,16 @@ export const ReportesDashboard = () => {
                   <td>{bitacora.cliente}</td>
                   <td>{bitacora.fecha}</td>
                   <td>
-                    <ul>
+                    <ul className="partidas-list-report">
                       {bitacora.partidas.map(partida => (
                         <li key={partida.id}>{partida.cantidad} - {partida.descripcion} (${partida.costo})</li>
                       ))}
                     </ul>
+                  </td>
+                  <td>
+                    <strong>
+                      ${bitacora.partidas.reduce((total, partida) => total + Number(partida.costo), 0).toFixed(2)}
+                    </strong>
                   </td>
                 </tr>
               ))}

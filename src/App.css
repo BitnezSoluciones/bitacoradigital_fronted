@@ -242,4 +242,26 @@ body {
   margin: 0;
   padding-left: 1.2rem;
 }
+
+/* frontend/src/App.css */
+
+.report-table {
+  width: 100%;
+  margin-top: 1.5rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.report-table th, .report-table td {
+  border: 1px solid var(--border-color);
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+.report-table th {
+  background-color: var(--light-gray);
+}
+.report-table ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
 /* (El resto de los archivos, como Modal, BitacoraDisplay, etc., ya usan los componentes de AntD o clases que funcionarán con esto) */
