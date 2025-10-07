@@ -1,26 +1,25 @@
-/* =================================================================== */
-/* VARIABLES Y ESTILOS GLOBALES                       */
-/* =================================================================== */
+/* src/App.css - ACTUALIZADO */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 :root {
-  /* Paleta Corporativa */
   --primary-color: #1230be;
   --secondary-color: #23920b;
   --accent-color: #e58927;
-
-  /* Paleta de Neutros */
   --background-color: #f8f9fa;
   --surface-color: #ffffff;
   --border-color: #dee2e6;
   --text-color-primary: #212529;
   --text-color-secondary: #6c757d;
   --danger-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --light-gray: #f8f9fa;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   background-color: var(--background-color);
   color: var(--text-color-primary);
 }
@@ -29,7 +28,7 @@ body {
 /* ESTRUCTURA Y TARJETAS                           */
 /* =================================================================== */
 .app-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
 }
@@ -55,19 +54,68 @@ body {
   display: grid;
   gap: 1.5rem;
 }
-.service-form fieldset {
-  margin: 0; padding: 1rem; border: 1px solid var(--border-color); border-radius: 6px;
-  display: grid; gap: 0.75rem;
-}
-.service-form legend { padding: 0 0.5rem; font-weight: 500; color: var(--text-color-secondary); }
-.service-form input { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
-.partida-item { display: grid; grid-template-columns: 1fr 4fr auto; gap: 0.5rem; align-items: center; }
-.remove-btn, .add-btn { padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--background-color); cursor: pointer; text-align: center; }
-.remove-btn { background-color: #fee2e2; color: var(--danger-color); border: none; }
-.add-btn { margin-top: 0.5rem; font-weight: 500; }
-.form-actions { display: flex; justify-content: flex-end; gap: 1rem; }
 
-/* Estilo para el botón principal del formulario */
+.service-form fieldset {
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.service-form legend {
+  padding: 0 0.5rem;
+  font-weight: 500;
+  color: var(--text-color-secondary);
+}
+
+.service-form input,
+.service-form select,
+.service-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.partida-item {
+  display: grid;
+  grid-template-columns: 1fr 4fr auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.remove-btn,
+.add-btn {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--background-color);
+  cursor: pointer;
+  text-align: center;
+}
+
+.remove-btn {
+  background-color: #fee2e2;
+  color: var(--danger-color);
+  border: none;
+}
+
+.add-btn {
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
 .form-actions button[type="submit"] {
   background-color: var(--primary-color);
   color: var(--surface-color);
@@ -94,85 +142,97 @@ body {
 /* LISTA DE SERVICIOS                             */
 /* =================================================================== */
 .list-card .service-list {
-  list-style: none; padding: 0; margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
+
 .list-card .service-item {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  padding: 1.5rem 0; border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-color);
 }
+
 .list-card .service-item:last-child {
   border-bottom: none;
 }
+
 .list-card .service-content {
   flex-grow: 1;
 }
+
 .list-card .service-client {
-  margin: 0 0 0.25rem 0; font-size: 1.2rem;
+  margin: 0 0 0.25rem 0;
+  font-size: 1.2rem;
 }
+
 .list-card .service-meta {
-  margin: 0; color: var(--text-color-secondary); font-size: 0.9rem;
+  margin: 0;
+  color: var(--text-color-secondary);
+  font-size: 0.9rem;
 }
+
 .list-card .partidas-list {
-  list-style: disc; padding-left: 20px; margin-top: 0.75rem; color: var(--text-color-secondary);
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 0.75rem;
+  color: var(--text-color-secondary);
 }
+
 .list-card .service-actions {
-  display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; margin-left: 1rem; margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
 }
 
-/* frontend/src/App.css */
-
-/* --- Estilos para los botones de Acción en la lista --- */
-
-/* Regla base para AMBOS botones, para no repetir código */
+/* =================================================================== */
+/* BOTONES DE ACCIÓN                              */
+/* =================================================================== */
 .edit-btn,
-.delete-btn {
-  padding: 0.4rem 0.8rem;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  background-color: var(--surface-color); /* Fondo blanco */
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out; /* Transición suave para el hover */
-}
-
-/* Estilo específico para el botón de Editar */
-.edit-btn {
-  color: var(--primary-color); /* Texto azul */
-  border-color: var(--primary-color);
-}
-
-.edit-btn:hover {
-  background-color: var(--primary-color); /* Fondo azul al pasar el ratón */
-  color: var(--surface-color); /* Texto blanco */
-}
-
-/* Estilo específico para el botón de Eliminar */
-.delete-btn {
-  color: var(--danger-color); /* Texto rojo */
-  border-color: var(--danger-color);
-}
-
-.delete-btn:hover {
-  background-color: var(--danger-color); /* Fondo rojo al pasar el ratón */
-  color: var(--surface-color); /* Texto blanco */
-}
-
-.report-btn {
-  /* Copiamos los estilos base de los otros botones */
-  display: inline-block;
+.delete-btn,
+.report-btn,
+.pago-btn {
   padding: 0.4rem 0.8rem;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   background-color: var(--surface-color);
   cursor: pointer;
   font-weight: 500;
-  font-size: 1em; /* Para que coincida con el tamaño de fuente de los botones */
-  font-family: inherit; /* Para que use la misma fuente */
   transition: all 0.2s ease-in-out;
-  
-  /* Estilos específicos para el enlace */
-  text-decoration: none; /* Quita el subrayado de enlace */
-  color: var(--secondary-color); /* Lo hacemos verde (color secundario) */
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em;
+  font-family: inherit;
+}
+
+.edit-btn {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.edit-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--surface-color);
+}
+
+.delete-btn {
+  color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.delete-btn:hover {
+  background-color: var(--danger-color);
+  color: var(--surface-color);
+}
+
+.report-btn {
+  color: var(--secondary-color);
   border-color: var(--secondary-color);
 }
 
@@ -181,9 +241,138 @@ body {
   color: var(--surface-color);
 }
 
-/* frontend/src/App.css */
+.pago-btn {
+  background-color: var(--success-color);
+  color: var(--surface-color);
+  border: none;
+}
 
-/* --- Estilos para el Panel de Reportes --- */
+.pago-btn:hover {
+  background-color: #218838;
+}
+
+/* =================================================================== */
+/* MODAL DE PAGO                                  */
+/* =================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-title {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.modal-info-box {
+  background-color: var(--light-gray);
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.modal-info-text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-color-secondary);
+}
+
+.modal-total {
+  margin: 0.5rem 0 0 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.modal-content .form-group {
+  margin-bottom: 1rem;
+}
+
+.modal-content .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.modal-content .form-group input,
+.modal-content .form-group select,
+.modal-content .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.modal-content .form-group textarea {
+  resize: vertical;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--success-color);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: var(--text-color-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--light-gray);
+}
+
+/* =================================================================== */
+/* REPORTES                                    */
+/* =================================================================== */
 .report-form {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -202,13 +391,15 @@ body {
   display: flex;
   gap: 1.5rem;
   margin-top: 1rem;
+  flex-wrap: wrap;
 }
 
 .summary-card {
   background-color: var(--light-gray);
   border-radius: 8px;
   padding: 1.5rem;
-  flex-grow: 1;
+  flex: 1;
+  min-width: 200px;
   text-align: center;
 }
 
@@ -224,44 +415,50 @@ body {
   color: var(--primary-color);
 }
 
-/* frontend/src/App.css */
 .report-table {
   width: 100%;
   margin-top: 1.5rem;
   border-collapse: collapse;
 }
-.report-table th, .report-table td {
+
+.report-table th,
+.report-table td {
   border: 1px solid var(--border-color);
   padding: 0.75rem;
   text-align: left;
 }
+
 .report-table th {
   background-color: var(--light-gray);
+  font-weight: 600;
 }
+
 .report-table ul {
   margin: 0;
   padding-left: 1.2rem;
 }
 
-/* frontend/src/App.css */
+/* Estado badges */
+.estado-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
 
-.report-table {
-  width: 100%;
-  margin-top: 1.5rem;
-  border-collapse: collapse;
-  font-size: 0.9rem;
+/* Responsive */
+@media (max-width: 768px) {
+  .report-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .service-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .summary-cards {
+    flex-direction: column;
+  }
 }
-.report-table th, .report-table td {
-  border: 1px solid var(--border-color);
-  padding: 0.75rem;
-  text-align: left;
-  vertical-align: top;
-}
-.report-table th {
-  background-color: var(--light-gray);
-}
-.report-table ul {
-  margin: 0;
-  padding-left: 1.2rem;
-}
-/* (El resto de los archivos, como Modal, BitacoraDisplay, etc., ya usan los componentes de AntD o clases que funcionarán con esto) */
