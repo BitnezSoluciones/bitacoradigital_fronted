@@ -11,7 +11,7 @@ export const useApi = () => {
 
   const request = useCallback(async (
     endpoint: string,
-    method: string,
+    method: string = 'GET',
     body: unknown = null,
     params: URLSearchParams | null = null
   ) => {

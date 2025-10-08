@@ -20,8 +20,7 @@ export const BitacorasPage = () => {
   // 🔹 Verificar si el usuario es admin
   useEffect(() => {
     const checkAdmin = async () => {
-      // ✅ ORDEN CORRECTO: endpoint, method
-      const userData = await request('current_user/', 'GET');
+        const userData = await request('current_user/', 'GET');
       if (userData) {
         setIsAdmin(userData.is_staff);
       }
@@ -31,7 +30,6 @@ export const BitacorasPage = () => {
 
   // 🔹 Cargar todas las bitácoras
   const fetchBitacoras = async () => {
-    // ✅ ORDEN CORRECTO: endpoint, method
     const data = await request('bitacoras/', 'GET');
     if (data) setBitacoras(data);
   };
@@ -43,11 +41,9 @@ export const BitacorasPage = () => {
   // 🔹 Guardar (crear o actualizar según corresponda)
   const handleSaveBitacora = async (bitacoraData: Bitacora | Omit<Bitacora, 'id'>) => {
     if ("id" in bitacoraData) {
-      // ✅ ORDEN CORRECTO: endpoint, method, body
       await request(`bitacoras/${bitacoraData.id}/`, 'PUT', bitacoraData);
       setEditingId(null);
     } else {
-      // ✅ ORDEN CORRECTO: endpoint, method, body
       await request('bitacoras/', 'POST', bitacoraData);
     }
     fetchBitacoras();
@@ -57,7 +53,6 @@ export const BitacorasPage = () => {
   const handleDeleteBitacora = (id: number) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar esta bitácora?')) {
       const deleteAction = async () => {
-        // ✅ ORDEN CORRECTO: endpoint, method
         await request(`bitacoras/${id}/`, 'DELETE');
         fetchBitacoras();
       };

@@ -26,7 +26,7 @@ export const ReportesDashboard = () => {
     if (filtros.fecha_before) params.append('fecha_before', filtros.fecha_before);
     
     // 3. Llamamos a la API con nuestro hook
-    const data = await request('GET', 'bitacoras/resumen/', null, params);
+    const data = await request('bitacoras/resumen/', 'GET', null, params);
     
     if (data) {
       setReporteData(data);
